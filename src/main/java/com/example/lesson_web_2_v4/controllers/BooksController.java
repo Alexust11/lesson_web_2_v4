@@ -29,7 +29,7 @@ public class BooksController {
         }
         return ResponseEntity.ok(book);
     }
-    @GetMapping()
+    @PutMapping
     public ResponseEntity<Book> editBook(@RequestBody Book book) {
         Book foundBook = bookService.editBook(book);
         if (foundBook == null) {
@@ -42,7 +42,7 @@ public class BooksController {
         bookService.deleteBook(id);
 
     }
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<Collection<Book>> getAllBook() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
