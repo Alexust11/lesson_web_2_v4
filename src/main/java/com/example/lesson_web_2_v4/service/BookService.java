@@ -31,4 +31,18 @@ public class BookService {
     public Collection<Book> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    public Book findByName(String name) {
+        return bookRepository.findByName(name);
+    }
+
+    public Collection<Book> findByAuthor(String author) {
+        return bookRepository.findBooksByAuthor(author);
+    }
+
+    public Collection<Book> findByNamePart(String part) {
+        return bookRepository.findAllByNameContains(part);
+    }
+
+
 }
