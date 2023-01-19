@@ -9,9 +9,13 @@ import java.util.Collection;
 import java.util.Collections;
 
 public interface BookRepository extends JpaRepository<Book,Long> {
-    Book findByName(String name);
+    Book findByNameIgnoreCase(String name);
 
-    Collection<Book> findBooksByAuthor(String author);
+    Book findBookById(Long id);
 
-    Collection<Book> findAllByNameContains(String part);
+    Collection<Book> findBooksByAuthorContainsIgnoreCase(String author);
+
+    Collection<Book> findAllByNameContainsIgnoreCase(String part);
+
+    Collection<Book> findBooksByNameAndAuthor(String name, String author);
 }
