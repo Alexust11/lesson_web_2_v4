@@ -3,9 +3,7 @@ package com.example.lesson_web_2_v4.model;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 @Entity
 public class Book {
@@ -14,6 +12,9 @@ public class Book {
     private long id;
     private String name;
     private String author;
+    @ManyToOne
+    @JoinColumn(name = "Reader_Id")
+    private Reader reader;
 
     public Book(long id, String name, String author) {
         this.id = id;
