@@ -1,16 +1,21 @@
 package com.example.lesson_web_2_v4.controllers;
 
 import com.example.lesson_web_2_v4.model.Book;
+import com.example.lesson_web_2_v4.service.BookCoverService;
 import com.example.lesson_web_2_v4.service.BookService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("/books")
 public class BooksController {
     public BookService bookService;
+    public BookCoverService bookCoverService;
 
     public BooksController(BookService bookService) {
         this.bookService = bookService;
@@ -58,6 +63,13 @@ public class BooksController {
         }
         return ResponseEntity.ok(bookService.getAllBooks());
     }
-
+   @PostMapping (value = "/{id}/cover", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploaderCover(@PathVariable long id, @RequestParam MultipartFile cover) throws IOException {
+       if (cover.getSize() >= 1024 * 300) {
+           return  ResponseEntity.badRequest().body("File is to big");
+       }
+       bookCoverService.uploadCover(id,cover);
+       return ResponseEntity.ok().build();
+   }
 
 }
