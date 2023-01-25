@@ -21,7 +21,7 @@ import static java.nio.file.StandardOpenOption.CREATE_NEW;
 @Service
 @Transactional
 public class BookCoverService {
-@Value("covers")
+@Value("${books.cover.dir.path}")
     private String coversDid;
     private final BookService bookService;
     private final BookCoverRepository bookCoverRepository;
@@ -69,11 +69,11 @@ public class BookCoverService {
         }
     }
 
-    private BookCover findBookCover(long bookId) {
+    public BookCover findBookCover(long bookId) {
         return bookCoverRepository.findBookById(bookId).orElse(new BookCover());
     }
 
-    private String getExtension(String originalFilename) {
+    public String getExtension(String originalFilename) {
         return originalFilename.substring(originalFilename.lastIndexOf(".")+1);
     }
 }
